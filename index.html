@@ -1,0 +1,294 @@
+<html>
+<head>
+	<link rel='stylesheet' href='css/c3.min.css'>
+	<style>
+	/*
+		.c3-axis-y text, .c3-axis-x text 
+		{
+		  font-size: 18px;
+		}
+	*/
+	</style>
+</head>
+<body>
+
+	
+	<img src='img/temp.png'></img>
+	
+
+	<div id='chart-svg'>
+
+		<!--<svg height='600' width='800'>-->
+			<!-- Data points -->
+			<!--
+			<circle cx='100' cy='100' r='10'></circle>
+			<circle cx='100' cy='200' r='5'></circle>
+			<circle cx='250' cy='300' r='20' fill='red'></circle>
+			<circle cx='400' cy='300' r='50' fill='red'></circle>
+			-->
+
+			<!-- Axes -->
+			<!--
+			<line x1='50' x2='50' y1='0' y2='550' stroke-width='2' stroke='black'></line>
+			<line x1='50' x2='700' y1='550' y2='550' stroke-width='2' stroke='black'></line>
+			-->
+
+			<!-- 45-degree line via two methods -->
+			<!--
+			<line x1='50' x2='600' y1='550' y2='0' stroke-width='1' stroke='gray'></line>
+			-->
+
+			<!--
+			<line x1='50' x2='600' y1='550' y2='500' stroke-width='1' stroke='gray' transform='rotate(-45 50 550)'></line>
+			-->
+
+			<!-- Axis labels -->
+			<!-- Origin -->
+			<!--
+			<text x='30' y='580' text-anchor='middle'>0</text>
+			-->
+			<!-- x-axis labels -->
+			<!--
+			<text x='100' y='580' text-anchor='middle'>10</text>
+			<text x='150' y='580' text-anchor='middle'>20</text>
+			<text x='200' y='580' text-anchor='middle'>30</text>			
+			<text x='250' y='580' text-anchor='middle'>40</text>			
+			-->
+
+			<!-- y-axis labels -->
+			<!--
+			<text x='30' y='500' text-anchor='middle'>10</text>
+			<text x='30' y='450' text-anchor='middle'>20</text>
+			<text x='30' y='400' text-anchor='middle'>30</text>			
+			<text x='30' y='350' text-anchor='middle'>40</text>		
+			-->
+
+			<!-- x-axis ticks -->
+			<!--
+			<line x1='100' y1='560' x2='100' y2='550' stroke-width='1' stroke='black'>10</line>
+			<line x1='150' y1='560' x2='150' y2='550' stroke-width='1' stroke='black'>20</line>
+			<line x1='200' y1='560' x2='200' y2='550' stroke-width='1' stroke='black'>30</line>	<line x1='250' y1='560' x2='250' y2='550' stroke-width='1' stroke='black'>40</line>	
+			-->
+
+			<!-- complex shapes -->
+			<!--
+			<polygon points='500,300 500,350 550,350, 550,300' />
+			<polygon points='500,100 480,70 470,120' />
+			-->
+
+			<!-- open shapes -->
+			<!--
+			<polyline points='500,300 500,350 550,350, 550,300' fill='none' stroke='black'/>
+			<polyline points='500,100 480,70 470,120' fill='none' stroke='black'/>
+			-->
+
+			<!-- path - just for show -->
+			<!--
+			<circle cx='100' cy='100' r='10'></circle>
+			<circle cx='100' cy='200' r='5'></circle>
+			<circle cx='250' cy='300' r='20'></circle>
+			<circle cx='400' cy='300' r='50'></circle>-->
+			
+			<!--
+			<path d='M 400 300 L 250 300 L 100 200 L 100 100' stroke-width='1' stroke='black' fill='none' />
+			-->
+
+			<!-- Arc -->
+			<!--
+			<path d='M 400 300 Q 325 350 250 300 L 100 200 L 100 100' stroke-width='1' stroke='black' fill='none' />
+			-->
+		<!--</svg>-->
+
+
+	</div>
+
+	<div id='chart-c3'>
+	</div>
+
+	<div id='chart-plotly'>
+	</div>
+
+</body>
+
+<!-- Load libraries: D3, Plotly, C3 -->
+<script type='text/javascript' src='js/d3.3.5.17.min.js'></script>
+<script type='text/javascript' src='js/c3.0.4.11.min.js'></script>
+<script type='text/javascript' src='js/plotly.1.29.3.min.js'></script>
+</script>
+
+<script>
+// Set up data
+var date_june = ['2017-06-01', '2017-06-02', '2017-06-03', '2017-06-04', '2017-06-05', '2017-06-06', '2017-06-07', '2017-06-08', '2017-06-09', '2017-06-10', '2017-06-11', '2017-06-12', '2017-06-13', '2017-06-14', '2017-06-15', '2017-06-16', '2017-06-17', '2017-06-18', '2017-06-19', '2017-06-20', '2017-06-21', '2017-06-22', '2017-06-23', '2017-06-24', '2017-06-25', '2017-06-26', '2017-06-27', '2017-06-28', '2017-06-29', '2017-06-30']
+
+var temp_june = [84, 84, 84.9, 87.1, 82.9, 82.9, 75.9, 72, 81, 84.9, 87.1, 88, 89.1, 89.1, 88, 86, 84.9, 88, 87.1, 80.1, 82.9, 80.1, 88, 87.1, 82, 82.9, 79, 82, 84.9, 84];
+
+var date_july = ['2017-07-01', '2017-07-02', '2017-07-03', '2017-07-04', '2017-07-05', '2017-07-06', '2017-07-07', '2017-07-08', '2017-07-09', '2017-07-10', '2017-07-11', '2017-07-12', '2017-07-13', '2017-07-14', '2017-07-15', '2017-07-16', '2017-07-17', '2017-07-18', '2017-07-19', '2017-07-20', '2017-07-21', '2017-07-22', '2017-07-23', '2017-07-24', '2017-07-25', '2017-07-26', '2017-07-27', '2017-07-28', '2017-07-29', '2017-07-30', '2017-07-31'];
+
+var temp_july = [88, 89.1, 89.1, 89.1, 90, 91, 88, 91.9, 87.1, 91, 91.9, 91.9, 93.9, 93.9, 91.9, 90, 88, 88, 93, 96.1, 97, 97, 96.1, 89.1, 91, 86, 87.1, 86, 82, 82, 84.9];
+
+var blue = '#0000ff';
+var red  = '#ff0000';
+
+</script>
+
+<!-- C3 -->
+
+<script>
+
+	var chart_c3 = c3.generate({
+		bindto: '#chart-c3',
+		data: {
+			columns: [
+				['Date'].concat(date_june),
+				['High Temperature (F)'].concat(temp_june)
+			]
+			, x: 'Date'
+        	, color: 
+        	//pattern: ['#ff0000']
+        	function(color, d) {
+        		return (d.value > 85) ? red : blue;
+        	}
+        	//function(color, d) {
+        	//	return d3.interpolate('#0000ff', '#ff0000')((d.value - 70) / 30);
+        	//}
+		}
+		// Axis options
+	    , axis: {
+	        x: {
+	            type: 'timeseries',
+	            tick: {
+	            	format: '%Y-%m-%d'
+	            	//, fit: false
+	            }
+	            , label: 
+	            	{
+	            		text: 'Date',
+	            		position: 'outer-center'
+	            	}
+	        }
+	        ,y: {
+	            label: 
+	            	{
+	            		text: 'High Temperature (F)',
+	            		position: 'outer-middle'
+	            	}
+	            //, min: 0
+	        }
+	    }
+
+	    // style
+	    // use CSS for font size
+	    , point: {
+	      r: 5
+        }
+        
+        // legend
+        ,
+        legend: {
+          hide: true
+        }
+        	    
+	    // overall size
+	    //, size: {
+	    //	width: 800,
+	    //	height: 600
+	    //}
+	});
+
+	// Flow new data to chart
+	/*
+	var flow_c3 = setInterval( function() {
+		chart_c3.flow({
+			columns: [
+				['Date', date_july.shift()],
+				['High Temperature (F)', temp_july.shift()]
+			],
+			length: 0
+		});
+
+		if (date_july.length == 0) {
+			clearInterval(flow_c3);
+		}
+
+	}, 1000);
+	*/
+
+
+	// Transform chart type
+	/*
+	setTimeout( function() {
+		chart_c3.transform('area');
+	}, 2500);
+	*/
+
+	/*
+	setTimeout( function() {
+		chart_c3.transform('area-spline');
+	}, 5000);
+	*/
+
+</script>
+
+
+
+<!-- Plotly -->
+
+
+<script>
+
+	var chart_plotly = document.getElementById('chart-plotly');
+	
+	Plotly.plot( chart_plotly, 
+		[{
+			x: date_june,
+			y: temp_june
+			, mode: 'markers+lines'
+			, marker: {
+				symbol: 'circle',
+				size: 10,
+				color: temp_june,
+				cmin: blue,
+				cmax: red
+			}
+			, line: {
+				color: '#cccccc'
+			}
+		}]
+		, {
+			xaxis: {
+				title: 'Date'
+			},
+			yaxis: {
+				title: 'High Temperature (F)',
+
+			}
+		}
+	);
+
+	/*
+	var flow_plotly = setInterval( function() {
+		Plotly.extendTraces(chart_plotly,
+			{
+				x: [[date_july.shift()]],
+				y: [[temp_july.shift()]]
+			},
+			[0]
+		);
+
+		Plotly.restyle(chart_plotly,
+			{
+				marker: {
+					color: chart_plotly.data[0].y,
+					size: 10
+				}
+			},
+			[0]
+		);
+
+		if (date_july.length == 0) clearInterval(flow_plotly);
+	}, 1000);
+	*/
+</script>
+
+
+</html>
